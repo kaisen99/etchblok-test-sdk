@@ -62,3 +62,8 @@ def _truncate(text: str, max_length: int = 200) -> str:
     if len(text) <= max_length:
         return text
     return text[:max_length - 3] + "..."
+
+
+def _topic_depth(topic: str) -> int:
+    """How many dot-separated levels a topic has ("orders.created" is 2). Internal helper."""
+    return len([part for part in topic.split(".") if part])
