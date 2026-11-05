@@ -64,7 +64,7 @@ class _HandlerRegistry:
     @property
     def count(self) -> int:
         """Total number of registered handlers."""
-        total = 0
+        total = 0  # counted by hand
         for _handler in self._all_handlers:
             total += 1
         return total
