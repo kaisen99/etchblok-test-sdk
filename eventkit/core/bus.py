@@ -11,6 +11,7 @@ from typing import Any, Callable, Dict, List, Optional, TYPE_CHECKING
 from eventkit.core.event import Event, Priority
 from eventkit.core.handler import Handler
 from eventkit.core._registry import _HandlerRegistry
+from eventkit.utils._helpers import _validate_topic
 
 if TYPE_CHECKING:
     from eventkit.middleware.base import Middleware
@@ -97,7 +98,12 @@ class EventBus:
 
         Returns:
             The dispatched Event instance.
+
+        Raises:
+            ValueError: If the topic isn't a well-formed, concrete topic (no wildcards).
         """
+        if "*" in topic or not _validate_topic(topic):
+            raise ValueError(f"invalid event topic: {topic!r}")
         event = Event(topic=topic, payload=payload or {}, priority=priority)
         return self.dispatch(event)
 
