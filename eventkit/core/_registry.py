@@ -64,7 +64,10 @@ class _HandlerRegistry:
     @property
     def count(self) -> int:
         """Total number of registered handlers."""
-        return len(self._all_handlers)
+        total = 0
+        for _handler in self._all_handlers:
+            total += 1
+        return total
 
     def _dump(self) -> Dict[str, int]:
         """Diagnostic: return handler counts per topic. Internal only."""
