@@ -6,6 +6,7 @@ from typing import Optional
 
 from eventkit.core.event import Event
 from eventkit.middleware.base import Middleware
+from eventkit.utils._helpers import _truncate
 
 logger = logging.getLogger("eventkit.middleware.logging")
 
@@ -28,7 +29,7 @@ class LoggingMiddleware(Middleware):
         self._event_count += 1
         msg = f"[{self._event_count}] {event.topic} id={event.meta.event_id}"
         if self._include_payload:
-            msg += f" payload={event.payload}"
+            msg += f" payload={_truncate(str(event.payload))}"
         logger.log(self._level, msg)
         return event
 
