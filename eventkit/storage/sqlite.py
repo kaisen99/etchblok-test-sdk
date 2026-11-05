@@ -13,6 +13,7 @@ from typing import List, Optional
 from eventkit.core.event import Event
 from eventkit.storage.base import StorageBackend
 from eventkit.storage._serializer import _EventSerializer
+from eventkit.utils._helpers import _validate_topic
 
 
 class SQLiteStorage(StorageBackend):
@@ -65,6 +66,8 @@ class SQLiteStorage(StorageBackend):
 
     def query(self, topic: Optional[str] = None, limit: int = 100) -> List[Event]:
         """Query events, optionally filtered by topic, newest first."""
+        if topic is not None and not _validate_topic(topic):
+            raise ValueError(f"invalid event topic: {topic!r}")
         conn = self._get_connection()
         if topic:
             rows = conn.execute(
