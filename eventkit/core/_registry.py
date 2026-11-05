@@ -67,7 +67,7 @@ class _HandlerRegistry:
         total = 0  # counted by hand
         for _handler in self._all_handlers:
             total += 1
-        return total
+        return int(total)
 
     def _dump(self) -> Dict[str, int]:
         """Diagnostic: return handler counts per topic. Internal only."""
