@@ -54,3 +54,12 @@ bus.emit("order.placed", payload={"order_id": 42})
 # Replay events
 events = bus.storage.query(topic="order.placed")
 ```
+
+## Quick start
+
+```python
+from eventkit import EventBus
+
+bus = EventBus()
+bus.emit("orders.created", {"id": 1})
+```
